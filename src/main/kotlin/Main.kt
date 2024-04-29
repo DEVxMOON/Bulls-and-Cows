@@ -7,8 +7,7 @@ fun main() {
 
     while (true) {
         println("숫자를 입력하세요")
-        val numbers = readln().toInt()
-        val numberSheet = numbers.toString().map { it.toString().toInt() }.toIntArray()
+        val numberSheet = readln().map { it.toString().toInt() }.toIntArray()
 
         if (numberSheet.size != size) {
             println("범위 외 입력입니다.")
