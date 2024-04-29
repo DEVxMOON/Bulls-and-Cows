@@ -12,11 +12,9 @@ fun main() {
 
         when (num) {
             1 -> {
-
                 println("< 게임을 시작합니다 >")
                 val answer = makeAnswer(size)
                 runGame(size, answer)
-
             }
 
             2 -> {
@@ -35,7 +33,12 @@ fun main() {
     }
 }
 
-fun makeAnswer(size: Int): IntArray = (1..9).toList().shuffled().take(size).toIntArray()
+fun makeAnswer(size: Int): IntArray {
+    while (true) {
+        val answer = (1..9).toList().shuffled().take(size).toIntArray()
+        if (answer[0] != 0) return answer
+    }
+}
 
 fun hasDuplicates(arr: IntArray): Boolean {
     return arr.size != arr.distinct().size
@@ -72,6 +75,9 @@ fun runGame(size: Int, answer: IntArray) {
             continue
         } else if (hasDuplicates(numberSheet)) {
             println("중복된 숫자가 있습니다.")
+            continue
+        } else if (numberSheet[0] == 0) {
+            println("숫자는 0으로 시작할 수 없습니다.")
             continue
         } else {
             val result = checkGuess(answer, numberSheet)
