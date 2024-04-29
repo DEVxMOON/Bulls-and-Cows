@@ -3,6 +3,7 @@ package hr.bullsAndCows
 fun main() {
 
     val size = 3
+    val scoreList = mutableListOf<Int>()
 
     println("환영합니다! 원하시는 번호를 입력해주세요")
 
@@ -14,11 +15,12 @@ fun main() {
             1 -> {
                 println("< 게임을 시작합니다 >")
                 val answer = makeAnswer(size)
-                runGame(size, answer)
+                scoreList.add(runGame(size,answer))
             }
 
             2 -> {
                 //스코어 보드 기능
+                printScore(scoreList)
             }
 
             3 -> {
@@ -27,7 +29,7 @@ fun main() {
             }
 
             else -> {
-                println("< 입력이 잘못 되었습니다 >")
+                println("< 올바른 숫자를 입력해주세요! >")
             }
         }
     }
@@ -65,7 +67,8 @@ fun checkGuess(answer: IntArray, guess: IntArray): String {
     }
 }
 
-fun runGame(size: Int, answer: IntArray) {
+fun runGame(size: Int, answer: IntArray):Int {
+    var cnt =0
     while (true) {
         println("숫자를 입력하세요")
         val numberSheet = readln().map { it.toString().toInt() }.toIntArray()
@@ -84,8 +87,16 @@ fun runGame(size: Int, answer: IntArray) {
             println(result)
             if (result == "3S") {
                 println("정답!")
-                break
+                return cnt
             }
+            cnt++
         }
+    }
+}
+
+fun printScore(scoreList:MutableList<Int>){
+    println("< 게임 기록 보기 >")
+    scoreList.forEachIndexed { index, score ->
+        println("${index+1}번째 게임 : 시도 횟수 - $score")
     }
 }
