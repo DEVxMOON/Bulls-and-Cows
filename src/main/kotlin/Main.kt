@@ -3,24 +3,33 @@ package hr.bullsAndCows
 fun main() {
 
     val size = 3
-    val answer = makeAnswer(size)
+
+    println("환영합니다! 원하시는 번호를 입력해주세요")
 
     while (true) {
-        println("숫자를 입력하세요")
-        val numberSheet = readln().map { it.toString().toInt() }.toIntArray()
+        println("1. 게임 시작하기 2. 게임 기록 보기 3. 종료하기")
+        val num = readln().toInt()
 
-        if (numberSheet.size != size) {
-            println("범위 외 입력입니다.")
-            continue
-        } else if (hasDuplicates(numberSheet)) {
-            println("중복된 숫자가 있습니다.")
-            continue
-        } else {
-            val result = checkGuess(answer, numberSheet)
-            println(result)
-            if (result == "3S") {
-                println("정답!")
+        when (num) {
+            1 -> {
+
+                println("< 게임을 시작합니다 >")
+                val answer = makeAnswer(size)
+                runGame(size, answer)
+
+            }
+
+            2 -> {
+                //스코어 보드 기능
+            }
+
+            3 -> {
+                println("< 숫자 야구 게임을 종료합니다 >")
                 break
+            }
+
+            else -> {
+                println("< 입력이 잘못 되었습니다 >")
             }
         }
     }
@@ -50,5 +59,27 @@ fun checkGuess(answer: IntArray, guess: IntArray): String {
         strikes > 0 -> "${strikes}S"
         balls > 0 -> "${balls}B"
         else -> "OUT"
+    }
+}
+
+fun runGame(size: Int, answer: IntArray) {
+    while (true) {
+        println("숫자를 입력하세요")
+        val numberSheet = readln().map { it.toString().toInt() }.toIntArray()
+
+        if (numberSheet.size != size) {
+            println("범위 외 입력입니다.")
+            continue
+        } else if (hasDuplicates(numberSheet)) {
+            println("중복된 숫자가 있습니다.")
+            continue
+        } else {
+            val result = checkGuess(answer, numberSheet)
+            println(result)
+            if (result == "3S") {
+                println("정답!")
+                break
+            }
+        }
     }
 }
