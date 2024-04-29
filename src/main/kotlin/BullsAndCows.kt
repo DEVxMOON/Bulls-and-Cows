@@ -35,7 +35,7 @@ class BullsAndCows(size: Int) {
 
     private fun makeAnswer(size: Int): IntArray {
         while (true) {
-            val answer = (0..9).toList().shuffled().take(size).toIntArray()
+            val answer = (1..9).toList().shuffled().take(size).toIntArray()
             if (answer[0] != 0) return answer
         }
     }
