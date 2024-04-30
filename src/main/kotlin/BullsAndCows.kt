@@ -1,11 +1,13 @@
 package hr.bullsAndCows
 
-class BullsAndCows(size: Int) {
+class BullsAndCows(private val size: Int) {
     private val scoreList = mutableListOf<Int>()
 
     init {
         println("환영합니다! 원하시는 번호를 입력해주세요")
+    }
 
+    fun start() {
         while (true) {
             println("1. 게임 시작하기 2. 게임 기록 보기 3. 종료하기")
             val num = readln().toInt()
@@ -66,7 +68,7 @@ class BullsAndCows(size: Int) {
     }
 
     private fun runGame(size: Int, answer: IntArray): Int {
-        var cnt = 0
+        var cnt = 1
         while (true) {
             println("숫자를 입력하세요")
             val numberSheet = readln().map { it.toString().toInt() }.toIntArray()
