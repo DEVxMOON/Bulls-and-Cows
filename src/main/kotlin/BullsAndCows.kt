@@ -20,7 +20,7 @@ class BullsAndCows(private val size: Int) {
                     1 -> {
                         println("< 게임을 시작합니다 >")
                         val answer = makeAnswer(size)
-                        scoreList.add(runGame(size, answer))
+                        scoreList.add(runGame(answer))
                     }
 
                     2 -> {
@@ -75,22 +75,12 @@ class BullsAndCows(private val size: Int) {
         }
     }
 
-    private fun runGame(size: Int, answer: IntArray): Int {
+    private fun runGame(answer: IntArray): Int {
         var cnt = 1
         while (true) {
             println("숫자를 입력하세요")
             val numberSheet = readln().map { it.toString().toInt() }.toIntArray()
-
-            if (numberSheet.size != size) {
-                println("범위 외 입력입니다.")
-                continue
-            } else if (hasDuplicates(numberSheet)) {
-                println("중복된 숫자가 있습니다.")
-                continue
-            } else if (numberSheet[0] == 0) {
-                println("숫자는 0으로 시작할 수 없습니다.")
-                continue
-            } else {
+            if (checkNumber(numberSheet)) {
                 val result = checkGuess(answer, numberSheet)
                 println(result)
                 if (result == "3S") {
@@ -100,6 +90,21 @@ class BullsAndCows(private val size: Int) {
                 cnt++
             }
         }
+    }
+
+    //숫자 검증 분리
+    private fun checkNumber(numberSheet: IntArray): Boolean {
+        if (numberSheet.size != size) {
+            println("범위 외 입력입니다.")
+            return false
+        } else if (hasDuplicates(numberSheet)) {
+            println("중복된 숫자가 있습니다.")
+            return false
+        } else if (numberSheet[0] == 0) {
+            println("숫자는 0으로 시작할 수 없습니다.")
+            return false
+        }
+        return true
     }
 
     private fun printScore(scoreList: MutableList<Int>) {
