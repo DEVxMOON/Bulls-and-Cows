@@ -10,30 +10,38 @@ class BullsAndCows(private val size: Int) {
     fun start() {
         while (true) {
             println("1. 게임 시작하기 2. 게임 기록 보기 3. 종료하기")
-            val num = readln().toInt()
+            // 숫자가 아닌 값이 입력될 경우 핸들링
+            val input = readln()
+            var num: Int
+            if (input.matches(Regex("[0-9]+"))) {
+                num = input.toInt()
 
-            when (num) {
-                1 -> {
-                    println("< 게임을 시작합니다 >")
-                    val answer = makeAnswer(size)
-                    scoreList.add(runGame(size, answer))
-                }
+                when (num) {
+                    1 -> {
+                        println("< 게임을 시작합니다 >")
+                        val answer = makeAnswer(size)
+                        scoreList.add(runGame(size, answer))
+                    }
 
-                2 -> {
-                    printScore(scoreList)
-                }
+                    2 -> {
+                        printScore(scoreList)
+                    }
 
-                3 -> {
-                    println("< 숫자 야구 게임을 종료합니다 >")
-                    break
-                }
+                    3 -> {
+                        println("< 숫자 야구 게임을 종료합니다 >")
+                        break
+                    }
 
-                else -> {
-                    println("< 올바른 숫자를 입력해주세요! >")
+                    else -> {
+                        println("< 올바른 숫자를 입력해주세요! >")
+                    }
                 }
+            } else {
+                println("< 올바른 숫자를 입력해주세요! >")
             }
         }
     }
+
 
     private fun makeAnswer(size: Int): IntArray {
         while (true) {
