@@ -42,12 +42,17 @@ class BullsAndCows(private val size: Int) {
         }
     }
 
-
+    //기존의 코드는 큰 크기의 배열에서는 효율적이지 못하다.
+    //필요한 작업만큼만 수행하도록 처리할 것.
     private fun makeAnswer(size: Int): IntArray {
-        while (true) {
-            val answer = (1..9).toList().shuffled().take(size).toIntArray()
-            if (answer[0] != 0) return answer
+        val answers = mutableSetOf<Int>()
+        while (answers.size < size) {
+            val randomNumber = (1..9).random()
+            answers.add(randomNumber)
         }
+        print(answers)
+
+        return answers.toIntArray()
     }
 
     private fun hasDuplicates(arr: IntArray): Boolean {
